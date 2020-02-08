@@ -4,6 +4,15 @@ const routes = require("./routes");
 const cors = require("cors");
 
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server);
+
+const connectedUsers = {};
+
+io.on("connection", socket => {
+  const { user } = socket.handshake.query;
+  connectedUsers[user] = socket.id;
+});
 
 mongoose.connect(
   "mongodb+srv://omnistack07:omnistack07@omnistack-7-q2tw8.mongodb.net/omnistack08?retryWrites=true&w=majority",
@@ -13,8 +22,15 @@ mongoose.connect(
   }
 );
 
+app.use((req, res, next) => {
+  req.io = io;
+  req.connectedUsers = connectedUsers;
+
+  return next();
+});
+
 app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-app.listen(3333);
+server.listen(3333);
