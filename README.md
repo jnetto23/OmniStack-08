@@ -1,5 +1,5 @@
 # TinDev
-Result of the week OmniStack 7 - Rocketseat  
+Result of the week OmniStack 8 - Rocketseat  
 
 
 <img src="https://github.com/jnetto23/OmniStack-08/blob/master/screenshots/tindev.png" width="100%" height="auto"/>
